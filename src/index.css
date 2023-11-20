@@ -1,0 +1,13 @@
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #f8f9fa;
+  }
+}
+
+html, body, #root, #root>div {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
