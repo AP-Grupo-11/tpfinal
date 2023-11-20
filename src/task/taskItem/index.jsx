@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Button, ButtonBase, Divider, IconButton } from '@mui/material';
+import { Divider, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -27,25 +27,28 @@ export default function TaskItem(props) {
         sx={{
           transition: 'background-color 0.3s ease',
           '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+           backgroundColor: 'rgba(0, 0, 0, 0.1)',
           },
-          paddingY: '0',
+          padding: '0',
         }}
         onClick={handleItemPress}
         onMouseEnter={() => setShowButtons(true)}
         onMouseLeave={() => setShowButtons(false)}
       >
-        <ButtonBase
-          component="div"
+        <ListItemButton
           disableRipple
           TouchRippleProps={{ center: false }}
           sx={{
-            flexGrow: '1',
+            '&:hover': {
+              backgroundColor: 'transparent',
+            },
+            paddingX: '20px',
+            paddingY: '0',
             minHeight: '40px',
           }}>
           <ListItemText primary={texto} />
-        </ButtonBase>
-        <div style={{ minWidth: '60px' }}>
+        </ListItemButton>
+        <div style={{ minWidth: '60px', marginRight: '20px' }}>
           {showButtons && (
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <IconButton
@@ -58,7 +61,7 @@ export default function TaskItem(props) {
               <IconButton
                 edge="end"
                 aria-label="delete"
-                onClick={() => onClick = { handleDeleteClick }}
+                onClick={() => onClick={handleDeleteClick}}
               >
                 <DeleteIcon />
               </IconButton>
