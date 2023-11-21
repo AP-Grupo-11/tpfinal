@@ -8,8 +8,8 @@ export default function TaskList(props) {
 
   return (
     <List sx={{ width: '100%' }}>
-      {lista.map((elemento, index) => (
-        <TaskItem key={index} texto={elemento} />
+      {props.lista.map((task, index) => (
+        <TaskItem key={index} title={task.title} description={task.description} />
       ))}
     </List>
   );
