@@ -22,8 +22,9 @@ export default function TaskItem(props) {
     setShowButtons(!showButtons);
   };
 
-  const handleDeleteClick = () => {
-    onDelete();
+  const handleDeleteClick = (event) => {
+    event.stopPropagation();
+    console.log("entro");
   };
 
   return (
@@ -74,7 +75,7 @@ export default function TaskItem(props) {
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    onClick={() => onClick = { handleDeleteClick }}
+                    onClick={() =>{ handleDeleteClick()}}
                   >
                     <DeleteIcon />
                   </IconButton>
