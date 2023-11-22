@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, IconButton } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, IconButton, Checkbox } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Accordion from '@mui/material/Accordion';
@@ -12,7 +12,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { alignProperty } from '@mui/material/styles/cssUtils';
 import './styles.css';
 
-export default function TaskItem({ index, title, description, handleDelete, handleUpdate }) {
+export default function TaskItem({ index, title, description, done, handleAll}) {
+  const {handleDelete, handleUpdate, handleDone} = handleAll
 
 
   const [showButtons, setShowButtons] = useState(false);
@@ -46,9 +47,12 @@ export default function TaskItem({ index, title, description, handleDelete, hand
 
   const handleConfirmUpdate = () => {
     handleUpdate(index, update)
-
     handleClose()
+  }
 
+  const handleChecked = () => {
+    handleDone(index)
+    
   }
 
 
@@ -86,6 +90,11 @@ export default function TaskItem({ index, title, description, handleDelete, hand
                 paddingY: '0',
                 minHeight: '40px',
               }}>
+                <Checkbox
+                  checked={done}
+                  onChange={(event) => handleChecked(event)}
+                  onClick={(event) => event.stopPropagation()}
+                   />
               <ListItemText primary={title} />
             </ListItemButton>
             <div style={{ minWidth: '60px', marginRight: '20px' }}>

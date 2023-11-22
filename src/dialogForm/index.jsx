@@ -6,7 +6,7 @@ const DialogForm = (props) => {
   const [formDescription, setFormDescription] = useState('');
 
   const handleAdd = () => {
-    props.onAdd({title:formTitle, description:formDescription});
+    props.onAdd({title:formTitle, description:formDescription, done: false});
     handleClose();
   };
 
