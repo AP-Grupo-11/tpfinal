@@ -12,7 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { alignProperty } from '@mui/material/styles/cssUtils';
 import './styles.css';
 
-export default function TaskItem({ index, title, description, handleDelete }) {
+export default function TaskItem({ index, title, description, handleDelete, handleUpdate }) {
 
 
   const [showButtons, setShowButtons] = useState(false);
@@ -46,6 +46,9 @@ export default function TaskItem({ index, title, description, handleDelete }) {
   }
 
   const handleConfirmUpdate = () => {
+    handleUpdate(index, update)
+
+    handleClose()
 
   }
 

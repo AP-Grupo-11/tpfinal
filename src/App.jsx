@@ -3,6 +3,8 @@ import { Box } from '@mui/material';
 import TaskList from './task/taskList';
 import DialogForm from './dialogForm';
 
+import { updateLocalStorage } from './helpers/localStorageHelper';
+
 function App() {
   const [taskList, setTaskList] = useState([
     { title: "A", description: "Descripción A" },
@@ -19,23 +21,28 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const handleDelete = (key) => {
-    const newArray = taskList.filter(( item, index ) => index != key)
-    setTaskList(newArray)
-
-
-  }
-
+  
   const handleAdd = (newTask) => {
     setTaskList(prevTasks => [...prevTasks, newTask]);
   };
+  
+  const handleDelete = (key) => {
+    const newArray = taskList.filter(( item, index ) => index != key)
+    setTaskList(newArray)
+  }
+
+  const handleUpdate = (index, value) => {
+    const newArray = taskList;
+    newArray[index].description = value;
+    setTaskList([...newArray])
+    updateLocalStorage()
+  }
 
   return (
     <Box textAlign="left" maxWidth={1600} mt={2} >
       <button  onClick={handleClickOpen}>Añadir</button>
       <DialogForm open={open} onClose={handleClose} onAdd={handleAdd} />
-      <TaskList lista={taskList} handleDelete={handleDelete} ></TaskList>
+      <TaskList lista={taskList} handleDelete={handleDelete} handleUpdate={handleUpdate} ></TaskList>
     </Box>
   );
 }
