@@ -41,7 +41,6 @@ export default function TaskItem({ index, title, description, handleDelete, hand
 
   const handleUpdateValue = (event) => {
     const {value} = event.target;
-    console.log("entró");
     setUpdate(value)
   }
 
