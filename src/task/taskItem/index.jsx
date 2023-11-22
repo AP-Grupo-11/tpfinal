@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import { IconButton } from '@mui/material';
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Accordion from '@mui/material/Accordion';
@@ -12,11 +12,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { alignProperty } from '@mui/material/styles/cssUtils';
 import './styles.css';
 
-export default function TaskItem(props) {
+export default function TaskItem({ index, title, description, handleDelete }) {
 
-  const { task } = props;
 
   const [showButtons, setShowButtons] = useState(false);
+  const [update, setUpdate] = useState('')
+  const [open, setOpen] = useState(false);
 
   const handleItemPress = () => {
     setShowButtons(!showButtons);
@@ -24,8 +25,31 @@ export default function TaskItem(props) {
 
   const handleDeleteClick = (event) => {
     event.stopPropagation();
-    console.log("entro");
+    handleDelete(index)
+
   };
+
+
+  const handleClickOpen = (event) => {
+    event.stopPropagation();
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleUpdateValue = (event) => {
+    const {value} = event.target;
+    console.log("entró");
+    setUpdate(value)
+  }
+
+  const handleConfirmUpdate = () => {
+
+  }
+
+
 
   return (
     <>
@@ -60,7 +84,7 @@ export default function TaskItem(props) {
                 paddingY: '0',
                 minHeight: '40px',
               }}>
-              <ListItemText primary={props.title} />
+              <ListItemText primary={title} />
             </ListItemButton>
             <div style={{ minWidth: '60px', marginRight: '20px' }}>
               {showButtons && (
@@ -68,14 +92,14 @@ export default function TaskItem(props) {
                   <IconButton
                     edge="end"
                     aria-label="edit"
-                    onClick={() => handleButtonClick('Editar')}
+                    onClick={(event) => handleClickOpen(event)}
                   >
                     <EditIcon />
                   </IconButton>
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    onClick={() =>{ handleDeleteClick()}}
+                    onClick={(event) =>{ handleDeleteClick(event)}}
                   >
                     <DeleteIcon />
                   </IconButton>
@@ -85,9 +109,37 @@ export default function TaskItem(props) {
           </ListItem>
         </AccordionSummary>
         <AccordionDetails>
-          {props.description}
+          {description}
         </AccordionDetails>
       </Accordion>
+      <Dialog 
+        open={open} 
+        onClose={handleClose}
+        width={1600}
+        >
+        <DialogTitle>Editar</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {title}
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Descripción"
+            type="text"
+            value={update}
+            onChange={handleUpdateValue}
+            fullWidth
+            variant="standard"
+            multiline
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleConfirmUpdate}>Actualizar</Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }

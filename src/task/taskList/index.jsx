@@ -2,14 +2,13 @@ import React from 'react';
 import List from '@mui/material/List';
 import TaskItem from '../taskItem';
 
-export default function TaskList(props) {
-
-  const { lista } = props;
+export default function TaskList({ lista, handleDelete }) {
 
   return (
     <List sx={{ width: '100%' }}>
-      {props.lista.map((task, index) => (
-        <TaskItem key={index} title={task.title} description={task.description} />
+      {lista.map((task, index) => 
+      (
+        <TaskItem key={index} index={index} title={task.title} description={task.description} handleDelete={handleDelete} />
       ))}
     </List>
   );

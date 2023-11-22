@@ -20,15 +20,22 @@ function App() {
     setOpen(false);
   };
 
+  const handleDelete = (key) => {
+    const newArray = taskList.filter(( item, index ) => index != key)
+    setTaskList(newArray)
+
+
+  }
+
   const handleAdd = (newTask) => {
     setTaskList(prevTasks => [...prevTasks, newTask]);
   };
 
   return (
-    <Box textAlign="left" maxWidth={1600} mt={2}>
-      <button textAlign='center' onClick={handleClickOpen}>Añadir</button>
+    <Box textAlign="left" maxWidth={1600} mt={2} >
+      <button  onClick={handleClickOpen}>Añadir</button>
       <DialogForm open={open} onClose={handleClose} onAdd={handleAdd} />
-      <TaskList lista={taskList}></TaskList>
+      <TaskList lista={taskList} handleDelete={handleDelete} ></TaskList>
     </Box>
   );
 }
