@@ -38,6 +38,7 @@ const DialogForm = (props) => {
           label="Título"
           type="text"
           value={formTitle}
+          variant="outlined"
           onChange={onChangeTitle}
           fullWidth
         />
@@ -50,6 +51,7 @@ const DialogForm = (props) => {
           label="Descripción"
           type="text"
           value={formDescription}
+          variant="outlined"
           onChange={onChangeDescription}
           fullWidth
           multiline
@@ -57,8 +59,8 @@ const DialogForm = (props) => {
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancelar</Button>
-        <Button onClick={handleAdd}>Aceptar</Button>
+        <Button variant="outlined" onClick={handleClose}>Cancelar</Button>
+        <Button variant="outlined" onClick={handleAdd}>Aceptar</Button>
       </DialogActions>
     </Dialog>
   );

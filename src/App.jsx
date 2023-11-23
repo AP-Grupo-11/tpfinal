@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import TaskList from './task/taskList';
 import DialogForm from './dialogForm';
 import { readLocalStorage, updateLocalStorage } from './helpers/localStorageHelper.js';
-
-
 
 function App() {
   const [taskList, setTaskList] = useState([]);
@@ -17,7 +15,7 @@ function App() {
   const handleClose = () => {
     setOpen(false);
   };
-  
+
   const handleAdd = (newTask) => {
     updateLocalStorage([...taskList, newTask]);
     setTaskList(prevTasks => [...prevTasks, newTask]);
@@ -25,7 +23,7 @@ function App() {
 
   const handleAll = {
     handleDelete: (key) => {
-      const newArray = taskList.filter(( item, index ) => index != key)
+      const newArray = taskList.filter((item, index) => index != key)
       setTaskList(newArray);
       updateLocalStorage(newArray);
     },
@@ -43,17 +41,21 @@ function App() {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     const newArray = readLocalStorage();
     setTaskList([...newArray])
-  },[])
+  }, [])
 
   return (
-    <Box textAlign="left" maxWidth={1600} mt={2} >
-      <button  onClick={handleClickOpen}>Añadir</button>
-      <DialogForm open={open} onClose={handleClose} onAdd={handleAdd} />
-      <TaskList lista={taskList} handleAll={handleAll}  ></TaskList>
-    </Box>
+    <Grid container justifyContent="center">
+      <Grid item xs={8} justifyContent="end">
+        <Box textAlign="right" maxWidth={1600} my={2} >
+          <Button variant="contained" onClick={handleClickOpen}>Añadir</Button>
+        </Box>
+        <TaskList lista={taskList} handleAll={handleAll}></TaskList>
+        <DialogForm open={open} onClose={handleClose} onAdd={handleAdd} />
+      </Grid>
+    </Grid>
   );
 }
 
