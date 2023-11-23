@@ -89,6 +89,7 @@ export default function TaskItem({ index, title, description, done, handleAll })
               {(isExpanded || isHovered) && (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <IconButton
+                  disabled={isChecked}
                     sx={{
                       borderRadius: '5%',
                       marginRight: '0px',
