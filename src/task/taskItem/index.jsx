@@ -10,21 +10,16 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 export default function TaskItem({ index, title, description, done, handleAll }) {
   const { handleDelete, handleUpdate, handleDone } = handleAll
 
-
-  const [showButtons, setShowButtons] = useState(false);
   const [update, setUpdate] = useState('')
   const [open, setOpen] = useState(false);
 
   const [isChecked, setIsChecked] = useState(done);
-
-  const handleItemPress = () => {
-    setShowButtons(!showButtons);
-  };
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleDeleteClick = (event) => {
     event.stopPropagation();
-    handleDelete(index)
-
+    handleDelete(index);
   };
 
   const handleClickOpen = (event) => {
@@ -65,6 +60,9 @@ export default function TaskItem({ index, title, description, done, handleAll })
           fontFamily: 'Open Sans',
           overflow: 'hidden'
         }}
+        onChange={() => setIsExpanded(!isExpanded)}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -74,9 +72,6 @@ export default function TaskItem({ index, title, description, done, handleAll })
             flexGrow: '1',
             alignItems: 'center'
           }}
-            onClick={handleItemPress}
-            onMouseEnter={() => setShowButtons(true)}
-            onMouseLeave={() => setShowButtons(false)}
           >
             <div style={{
               display: 'flex',
@@ -91,7 +86,7 @@ export default function TaskItem({ index, title, description, done, handleAll })
               <Typography component="div">{title}</Typography>
             </div>
             <div style={{ minWidth: '60px', marginRight: '20px', marginLeft: 'auto' }}>
-              {(showButtons &&
+              {(isExpanded || isHovered) && (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <IconButton
                     sx={{
