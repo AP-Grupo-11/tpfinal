@@ -1,11 +1,10 @@
 import React from 'react';
-import List from '@mui/material/List';
 import TaskItem from '../taskItem';
 
 export default function TaskList({ lista, handleAll }) {
 
   return (
-    <List sx={{ width: '100%' }}>
+    <div>
       {lista.map((task, index) => 
       (
         <TaskItem 
@@ -16,7 +15,7 @@ export default function TaskList({ lista, handleAll }) {
           done={task.done} 
           handleAll={handleAll}  />
       ))}
-    </List>
+    </div>
   );
 
 }
